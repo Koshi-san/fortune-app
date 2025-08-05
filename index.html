@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心のお守り - 毎日の運勢アプリ</title>
+    
+    <!-- SEO・SNSシェア対策 -->
+    <meta name="description" content="四柱推命・易経・陰陽五行で毎日の運勢を占う「心のお守り」。完全無料で本格的な占いをお楽しみください。">
+    <meta name="keywords" content="占い,運勢,四柱推命,易経,陰陽五行,今日の運勢,無料占い">
+    <meta property="og:title" content="心のお守り - 毎日の運勢アプリ">
+    <meta property="og:description" content="四柱推命・易経・陰陽五行で今日の運勢を占う本格アプリ。完全無料でご利用いただけます。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-username.github.io/fortune-app/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="心のお守り - 毎日の運勢アプリ">
+    <meta name="twitter:description" content="四柱推命・易経・陰陽五行で今日の運勢を占う本格アプリ">
+    
+    <!-- ファビコン -->
+    <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔮</text></svg>">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        // GA_MEASUREMENT_ID を実際の測定IDに置き換えてください
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+        
+        // カスタムイベント送信関数
+        function trackEvent(action, category = 'User Interaction') {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', action, {
+                    'event_category': category,
+                    'event_label': 'Fortune App'
+                });
+            }
+        }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, #38bdf8, #93c5fd, #fde047);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        .form-container {
+            max-width: 28rem;
+            margin: 0 auto;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 1.5rem;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .text-white {
+            color: white;
+        }
+        
+        .text-blue-800 {
+            color: #1e40af;
+        }
+        
+        .text-blue-700 {
+            color: #1d4ed8;
+        }
+        
+        .text-yellow-400 {
+            color: #facc15;
+        }
+        
+        .text-amber-600 {
+            color: #d97706;
+        }
+        
+        .text-pink-400 {
+            color: #f472b6;
+        }
+        
+        .text-green-400 {
+            color: #4ade80;
+        }
+        
+        .text-red-400 {
+            color: #f87171;
+        }
+        
+        .text-gray-200 {
+            color: #e5e7eb;
+        }
+        
+        .text-gray-300 {
+            color: #d1d5db;
+        }
+        
+        .text-gray-600 {
+            color: #4b5563;
+        }
+        
+        .text-blue-300 {
+            color: #93c5fd;
+        }
+        
+        .text-blue-400 {
+            color: #60a5fa;
+        }
+        
+        h1 {
+            font-size: 1.875rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        h2 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        h3 {
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        input::placeholder {
+            color: #4b5563;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            ring: 2px solid #facc15;
+        }
+        
+        select option {
+            color: #1f2937;
+            background-color: white;
+        }
+        
+        .btn {
+            width: 100%;
+            background: linear-gradient(to right, #facc15, #f97316);
+            color: white;
+            font-weight: bold;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:hover {
+            background: linear-gradient(to right, #eab308, #ea580c);
+            transform: scale(1.05);
+        }
+        
+        .btn-reset {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-share {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 0 0.25rem;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.875rem;
+        }
+        
+        .btn-share:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .btn-reset {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-reset:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .share-container {
+            margin: 1rem 0;
+        }
+        
+        .grid {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .stars {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 0.75rem;
+        }
+        
+        .star {
+            width: 1.25rem;
+            height: 1.25rem;
+            margin: 0 0.125rem;
+        }
+        
+        .star-filled {
+            color: #facc15;
+            fill: currentColor;
+        }
+        
+        .star-empty {
+            color: #4b5563;
+        }
+        
+        .element-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.2);
+            margin-bottom: 0.5rem;
+        }
+        
+        .lucky-item {
+            margin-bottom: 1.5rem;
+        }
+        
+        .lucky-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+        }
+        
+        .lucky-icon-yellow {
+            background-color: #facc15;
+        }
+        
+        .lucky-icon-blue {
+            background-color: #60a5fa;
+        }
+        
+        .lucky-icon-purple {
+            background-color: #a78bfa;
+        }
+        
+        .icon-white {
+            color: white;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .loading-icon {
+            width: 4rem;
+            height: 4rem;
+            color: #facc15;
+            margin: 0 auto 2rem;
+            animation: pulse 2s infinite;
+        }
+        
+        .loading-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.25rem;
+        }
+        
+        .loading-dot {
+            width: 0.75rem;
+            height: 0.75rem;
+            background-color: #facc15;
+            border-radius: 50%;
+            animation: bounce 1s infinite;
+        }
+        
+        .loading-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .loading-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% { transform: translate3d(0,0,0); }
+            40%, 43% { transform: translate3d(0,-30px,0); }
+            70% { transform: translate3d(0,-15px,0); }
+            90% { transform: translate3d(0,-4px,0); }
+        }
+        
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .pt-4 { padding-top: 1rem; }
+        .pt-8 { padding-top: 2rem; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .mr-2 { margin-right: 0.5rem; }
+        .text-sm { font-size: 0.875rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .max-w-md { max-width: 28rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .leading-relaxed { line-height: 1.625; }
+        
+        .footer {
+            margin-top: 2rem;
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.4;
+        }
+        
+        .justify-center { justify-content: center; }
+        .flex-wrap { flex-wrap: wrap; }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        // グローバル状態
+        let currentState = {
+            user: null,
+            fortune: null,
+            showAnimation: false,
+            formData: {
+                name: '',
+                birthDate: '',
+                gender: ''
+            }
+        };
+
+        // データ定義
+        const tenStems = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
+        const twelveBranches = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
+        const fiveElements = ['木', '火', '土', '金', '水'];
+        const elementColors = {
+            '木': 'text-green-400',
+            '火': 'text-red-400', 
+            '土': 'text-amber-600',
+            '金': 'text-gray-200',
+            '水': 'text-blue-300'
+        };
+
+        const hexagrams = [
+            { 
+                name: '乾', 
+                meaning: '創造', 
+                advice: [
+                    '積極的に行動することで道が開ける',
+                    '自信を持って決断を下す時です',
+                    'リーダーシップを発揮する絶好の機会',
+                    '創造性を存分に発揮してください',
+                    '強い意志で目標に向かいましょう'
+                ]
+            },
+            { 
+                name: '坤', 
+                meaning: '受容', 
+                advice: [
+                    '周りの声に耳を傾け、柔軟性を大切に',
+                    '受け入れる心が新たな可能性を引き寄せます',
+                    '協調性を活かして、みんなで力を合わせて',
+                    '謙虚な姿勢が周囲からの信頼を得る鍵',
+                    '包容力を持って人と接しましょう'
+                ]
+            },
+            { 
+                name: '屯', 
+                meaning: '困難', 
+                advice: [
+                    '小さな一歩から始めることが大切',
+                    '困難は成長のチャンスです',
+                    '基礎をしっかり固めましょう',
+                    '仲間の助けを借りることで道が開けます',
+                    '希望を持ち続けることが重要'
+                ]
+            },
+            { 
+                name: '蒙', 
+                meaning: '啓発', 
+                advice: [
+                    '新しい学びがあなたを成長させる',
+                    '素直な心で教えを受けましょう',
+                    '知識を深めることで道が開かれます',
+                    '謙虚に学ぶ姿勢を大切に',
+                    '初心者の心を忘れずに'
+                ]
+            },
+            { 
+                name: '需', 
+                meaning: '待機', 
+                advice: [
+                    'タイミングを見極めることが成功の鍵',
+                    '焦らず、じっくりと準備を整えて',
+                    '待つことで力を蓄えましょう',
+                    '天の時を信じて自然の流れに身を任せて',
+                    '充電期間として今を活用しましょう'
+                ]
+            },
+            { 
+                name: '訟', 
+                meaning: '争い', 
+                advice: [
+                    '対立よりも調和を選ぶことで解決する',
+                    '話し合いを通じて理解を深めましょう',
+                    '争いを避け、平和的な解決策を模索して',
+                    '相手の立場に立って考えてみて',
+                    '妥協点を見つけることが大切'
+                ]
+            },
+            { 
+                name: '師', 
+                meaning: '統率', 
+                advice: [
+                    'リーダーシップを発揮する時',
+                    '責任感を持ってチームを導いて',
+                    '規律と秩序を保ちながら進みましょう',
+                    '部下や仲間への配慮を忘れずに',
+                    '統率力で組織の力を引き出して'
+                ]
+            },
+            { 
+                name: '比', 
+                meaning: '親和', 
+                advice: [
+                    '人とのつながりが幸運を運んでくる',
+                    '友情を大切にし、支え合いましょう',
+                    '協力者との絆を深めて',
+                    '親しみやすさがあなたの魅力',
+                    '仲間との結束が力を発揮します'
+                ]
+            }
+        ];
+
+        const luckyColors = ['ゴールド(金色)', 'シルバー(銀色)', 'ディープブルー(深青色)', 'エメラルドグリーン(緑色)', 'ルビーレッド(赤色)', 'アメジスト(紫色)', 'ローズクォーツ(淡桃色)', 'サファイア(青色)', 'ペリドット(黄緑色)', 'オニキス(黒色)', 'ムーンストーン(乳白色)', 'トパーズ(黄色)'];
+        const directions = ['東', '西', '南', '北', '東南', '南西', '北東', '北西'];
+
+        // ユーティリティ関数
+        function getElementDescription(element) {
+            const descriptions = {
+                '木': [
+                    '成長・発展・創造力を司る。新しいことを始めるのに適したエネルギー',
+                    '若葉のように伸びやかな気を持つ日。可能性を信じて行動を起こしましょう',
+                    '創造性と柔軟性に満ちた一日。アイデアを形にする絶好のタイミング',
+                    '春の息吹のような生命力溢れる日。新たな挑戦に向かう勇気が湧いてきます',
+                    '成長への意欲が高まる時。学びと経験を積極的に取り入れてみて'
+                ],
+                '火': [
+                    '情熱・活力・コミュニケーションを司る。人とのつながりが重要な日',
+                    '燃える炎のような熱いエネルギーに満ちています。積極的に行動しましょう',
+                    '明るく輝く太陽のパワーがあなたを照らす日。周囲を元気づけられそう',
+                    '情熱的な気持ちが成功への扉を開きます。心の声に従って進んでください',
+                    '活力と魅力が最高潮に。リーダーシップを発揮する場面が訪れるかも'
+                ],
+                '土': [
+                    '安定・信頼・包容力を司る。基盤を固め、人を支えることで運気上昇',
+                    '大地のように安定した力に支えられています。じっくりと物事を進めて',
+                    '母なる大地の包容力を持つ日。周囲への思いやりが幸運を呼び込みます',
+                    '堅実で信頼できるあなたの魅力が光る時。着実な歩みを大切に',
+                    '調和と安定を重視することで、大きな成果につながる暗示があります'
+                ],
+                '金': [
+                    '決断・意志・浄化を司る。整理整頓や計画的な行動が幸運を招く',
+                    '金属のように強い意志力を持つ日。迷いを断ち切って前進しましょう',
+                    '鋭い洞察力と集中力が冴える時。重要な判断を下すのに最適です',
+                    '純粋で澄んだ心持ちが道を開きます。不要なものを手放すタイミング',
+                    '品格と理性を重んじることで、周囲からの信頼を得られる日です'
+                ],
+                '水': [
+                    '知恵・柔軟性・直感を司る。流れに身を任せ、内面の声に従う日',
+                    '清らかな水のように純粋な心で過ごしましょう。直感が冴えています',
+                    '流れる川のような適応力が活かされる時。変化を恐れず進んでください',
+                    '深い海のような叡智があなたの中に眠っています。瞑想的な時間を大切に',
+                    '感受性と共感力が高まる日。人の心に寄り添うことで絆が深まります'
+                ]
+            };
+            const elementArray = descriptions[element] || [''];
+            return elementArray[Math.floor(Math.random() * elementArray.length)];
+        }
+
+        function getColorItems(color) {
+            const items = {
+                'ゴールド(金色)': ['アクセサリー', '文房具', 'ワンポイント小物', '時計', 'ボールペン'],
+                'シルバー(銀色)': ['時計', 'キーホルダー', '靴下', 'イヤリング', 'ヘアピン'],
+                'ディープブルー(深青色)': ['ハンカチ', 'マフラー', '手帳カバー', 'ネクタイ', 'バッグ'],
+                'エメラルドグリーン(緑色)': ['マスク', 'トートバッグ', 'ヘアアクセサリー', '植物', 'ハンドタオル'],
+                'ルビーレッド(赤色)': ['リップ', 'ネイル', 'カードケース', 'スカーフ', '口紅'],
+                'アメジスト(紫色)': ['イヤリング', 'ブレスレット', 'スマホケース', 'パスケース', 'ポーチ'],
+                'ローズクォーツ(淡桃色)': ['ヘアゴム', 'ハンドクリーム', 'ブラウス', 'ストール', 'チーク'],
+                'サファイア(青色)': ['ペン', 'ノート', 'ベルト', 'ソックス', 'ワンピース'],
+                'ペリドット(黄緑色)': ['アクセサリー', '下着', 'タオル', 'エコバッグ', 'リボン'],
+                'オニキス(黒色)': ['シューズ', 'ベルト', '財布', 'スーツ', 'アイライナー'],
+                'ムーンストーン(乳白色)': ['パール', 'ブラウス', 'ハンカチ', 'ビーズ', 'スカート'],
+                'トパーズ(黄色)': ['ネックレス', 'シャツ', 'マニキュア', 'フラワー', 'チャーム']
+            };
+            const colorItems = items[color] || ['小物'];
+            return colorItems[Math.floor(Math.random() * colorItems.length)];
+        }
+
+        function getHexagramDetail(hexagram) {
+            const details = {
+                '乾': [
+                    '天の卦。強いリーダーシップと創造力で新しい道を切り開く',
+                    '無限の可能性を秘めた純粋なエネルギー。自信を持って歩みを進めて',
+                    '天空のように広がる視野と力強い意志で、大きな成果を手にする時',
+                    '創造主のような発想力が冴える日。新たなプロジェクトを始めるのに最適'
+                ],
+                '坤': [
+                    '地の卦。母なる大地のように受け入れる心で人間関係を豊かに',
+                    '包容力と寛容さがあなたの最大の武器。周囲を支える役割が光ります',
+                    '大地の恵みのように、与える心が巡り巡って幸運をもたらします',
+                    '柔軟性と協調性を活かして、チームワークで成功を収める暗示'
+                ],
+                '屯': [
+                    '始まりの困難。新芽が土を押し上げるように、忍耐強く歩もう',
+                    '困難は成長のための試練。乗り越えた先に大きな飛躍が待っています',
+                    '種から芽が出る瞬間のように、準備期間の努力が実を結び始める',
+                    '助けを求めることを恐れずに。仲間と支え合って困難を乗り切って'
+                ],
+                '蒙': [
+                    '学びの卦。素直な心で新しい知識や経験を吸収する時',
+                    '初心者の心を大切に。謙虚な姿勢が新たな扉を開く鍵となります',
+                    '知識欲が高まっている今、積極的に学ぶことで大きく成長できる',
+                    '師や先輩からの教えを素直に受け入れることで、道筋が見えてきます'
+                ],
+                '需': [
+                    '待つことの大切さ。雲が雨を運ぶように、タイミングを見極めよう',
+                    '急がば回れの精神で。今は準備と充電の時間を大切にしてください',
+                    '天の時を待つ賢さが、最良の結果をもたらします。焦りは禁物',
+                    '待機することで力を蓄え、絶好のチャンスを確実にものにできる'
+                ],
+                '訟': [
+                    '争いの卦。対立を避け、話し合いで解決の道を探そう',
+                    '意見の違いも成長の糧。相手の立場を理解しようとする姿勢が大切',
+                    '争うよりも調和を選ぶことで、予想以上の良い結果が生まれます',
+                    '正義感は大切ですが、時には妥協も必要。バランスを心がけて'
+                ],
+                '師': [
+                    '組織の卦。リーダーとしての器を磨き、みんなを導く役割',
+                    '統率力と責任感が試される時。チーム全体のことを考えて行動を',
+                    '指導者としての資質が開花する日。部下や後輩への配慮を忘れずに',
+                    '規律と秩序を重んじることで、組織全体の力を最大限に引き出せる'
+                ],
+                '比': [
+                    '親しみの卦。人との絆を深め、協力し合うことで幸運が舞い込む',
+                    '和合の精神で人と接することで、思わぬ協力者が現れるかも',
+                    '友情と信頼の絆が、困難な状況を打開する力となります',
+                    '仲間との結束を大切に。一人では成し得ないことも皆となら可能'
+                ]
+            };
+            const detailArray = details[hexagram.name] || [''];
+            return detailArray[Math.floor(Math.random() * detailArray.length)];
+        }
+
+        function getFortuneMessage(type, score) {
+            const messages = {
+                love: {
+                    5: [
+                        '心が開かれている今、真の愛が芽吹く時。素直な気持ちを大切に。',
+                        '愛は与えるもの。あなたの優しさが、深いつながりを育みます。',
+                        '運命的な出会いや深い絆に恵まれる予感。心を開いて人と接して。',
+                        '愛情運が最高潮に。パートナーとの関係がより一層深まりそう。',
+                        '魅力が輝いている今、積極的なアプローチが幸運を呼び込みます。'
+                    ],
+                    4: [
+                        '相手の心を理解しようとする姿勢が、関係を深めるでしょう。',
+                        '小さな思いやりの積み重ねが、大きな愛へと実を結びます。',
+                        '誠実な気持ちが相手に伝わり、信頼関係が築かれていきます。',
+                        'コミュニケーションを大切にすることで、愛が育まれる日。',
+                        '優しさと包容力で、周囲の人々の心を温かく包み込んで。'
+                    ],
+                    3: [
+                        '焦らず自分らしくいること。それが最高の魅力となります。',
+                        'ありのままの自分を愛することから、真の愛は始まります。',
+                        '安定した愛情関係を維持するために、日々の感謝を忘れずに。',
+                        'バランスの取れた関係性が、長続きする愛の秘訣です。',
+                        '心の平安を保つことで、愛情運も安定して向上していきます。'
+                    ],
+                    2: [
+                        '今は内面を磨く時。自分を大切にする心が、愛を引き寄せます。',
+                        '急がば回れ。今日は自分との対話を大切にしてください。',
+                        '相手との距離を見直し、お互いの時間を尊重することが大切。',
+                        '小さな誤解が生じやすい日。言葉選びに気をつけて。',
+                        '一歩引いて相手を見つめ直すことで、新たな魅力を発見できそう。'
+                    ],
+                    1: [
+                        '心の準備が整うまで、静かに待つことも愛の形です。',
+                        '今の経験すべてが、未来の深い愛への礎となっています。',
+                        '愛に関して慎重になりすぎているかも。心を少し軽やかに。',
+                        '過去の経験を活かし、より成熟した愛を育む準備をしましょう。',
+                        '自分自身と向き合う時間が、将来の幸せな関係につながります。'
+                    ]
+                },
+                work: {
+                    5: [
+                        'あなたの才能が光る時。自信を持って前進してください。',
+                        '創造力が冴える今日、新しいアイデアが形になるでしょう。',
+                        '仕事運が絶好調。積極的なチャレンジが大きな成果をもたらします。',
+                        'リーダーシップを発揮する絶好の機会。周囲を導いてください。',
+                        '努力が報われる時。長年の頑張りが認められ、昇進のチャンスも。'
+                    ],
+                    4: [
+                        '協力者に恵まれる日。チームワークを大切にしてください。',
+                        '努力が実を結び始めています。継続こそが力なり。',
+                        '仕事での評価が高まっている今、新しいプロジェクトに挑戦を。',
+                        '同僚との連携がスムーズに。協調性を活かして成果を上げて。',
+                        '計画していたことが順調に進む暗示。着実に歩みを進めましょう。'
+                    ],
+                    3: [
+                        '着実な歩みが成功への道。焦らず一歩ずつ進みましょう。',
+                        '今日の小さな積み重ねが、明日の大きな成果につながります。',
+                        '安定した仕事ぶりが周囲の信頼を得ています。現状維持で十分。',
+                        'ルーティンワークを丁寧にこなすことで、基盤が固まります。',
+                        'バランスの取れた働き方で、長期的な成功を目指しましょう。'
+                    ],
+                    2: [
+                        '準備と学びの時。今は基礎を固めることに集中を。',
+                        '困難も成長の糧。今の経験が将来の財産となります。',
+                        '少し慎重になりすぎているかも。時には大胆な行動も必要です。',
+                        'スキルアップの機会を積極的に活用して、将来に備えて。',
+                        '上司や先輩からのアドバイスを素直に受け入れることが成長の鍵。'
+                    ],
+                    1: [
+                        '休息も仕事のうち。心身を整えることで新たな力が生まれます。',
+                        '見直しの時期。現状を客観視することで道筋が見えてきます。',
+                        'ミスに注意が必要な日。確認作業を怠らないようにしてください。',
+                        'ストレスが溜まりやすい時期。適度な休憩で心をリフレッシュ。',
+                        '今は守りの姿勢が大切。無理をせず、体調管理を最優先に。'
+                    ]
+                },
+                health: {
+                    5: [
+                        '心身ともに絶好調。この活力を大切な人と分かち合って。',
+                        '生命力に満ちています。感謝の気持ちを体で表現しましょう。',
+                        'エネルギーが溢れている今、新しい運動や健康法を始めるのに最適。',
+                        '免疫力が高まっている時期。積極的に外に出て活動してください。',
+                        '心も体も軽やか。ポジティブな気持ちが健康をさらに増進させます。'
+                    ],
+                    4: [
+                        '体調良好な今、新しい習慣を始めるのに最適です。',
+                        '健康な心は健康な体に宿る。前向きな気持ちを大切に。',
+                        '運動不足解消のチャンス。楽しく体を動かすことから始めて。',
+                        '栄養バランスの良い食事が、さらなる健康増進につながります。',
+                        '良い睡眠パターンが確立されています。この調子を維持して。'
+                    ],
+                    3: [
+                        'バランスを意識した生活を。規則正しさが鍵となります。',
+                        '無理は禁物。適度な休息で心身のバランスを保ちましょう。',
+                        '健康状態は安定しています。現在の生活習慣を継続してください。',
+                        'ストレス管理が上手くいっています。この調子で心の健康も維持を。',
+                        '予防意識を高めることで、将来の健康リスクを減らせます。'
+                    ],
+                    2: [
+                        '体のサインに耳を傾けて。早めのケアが大切です。',
+                        '今日は体をいたわる日。優しく自分を扱ってください。',
+                        '少し疲れが溜まっているようです。質の良い休息を心がけて。',
+                        '食生活を見直すタイミング。体に優しい食材を選んでみて。',
+                        '軽い運動から始めて、徐々に体力を回復させていきましょう。'
+                    ],
+                    1: [
+                        '十分な休息を取りましょう。回復にはそれなりの時間が必要です。',
+                        '今は充電の時期。焦らず体調回復に専念してください。',
+                        '無理は絶対に禁物。体調を最優先に考えて行動してください。',
+                        '医療機関での相談も検討を。早めの対処が回復への近道です。',
+                        'ゆっくりとした呼吸と瞑想で、心身のバランスを整えて。'
+                    ]
+                },
+                money: {
+                    5: [
+                        '金運上昇中。ただし感謝の気持ちを忘れずに。',
+                        '豊かさは循環するもの。分かち合う心を大切にしてください。',
+                        '投資や副業に良いタイミング。ただし慎重な判断も必要です。',
+                        '臨時収入の可能性大。思わぬところからお金が舞い込むかも。',
+                        '金銭感覚が研ぎ澄まされています。良い買い物ができそう。'
+                    ],
+                    4: [
+                        '堅実な判断が吉。今日の選択が未来の安定につながります。',
+                        '収入アップのチャンス到来。準備してきたことが活かされます。',
+                        '節約の効果が現れ始めています。この調子で続けてください。',
+                        '計画的な貯蓄が功を奏しています。将来への備えは順調です。',
+                        'お金に関する良いニュースが届く可能性があります。'
+                    ],
+                    3: [
+                        '計画的な支出を心がけて。小さな節約が大きな実を結びます。',
+                        '現状維持で十分。無理な投資は避け、安定を選びましょう。',
+                        '家計のバランスが良好です。この状態をキープしてください。',
+                        '必要なものと欲しいものを区別して、賢い消費を心がけて。',
+                        '金銭管理が上手になっています。自分を褒めてあげましょう。'
+                    ],
+                    2: [
+                        '出費を見直す時。本当に必要なものを見極めてください。',
+                        '今は守りの時期。慎重な判断が将来の安定を築きます。',
+                        '無駄遣いに注意。購入前に一度立ち止まって考えてみて。',
+                        '予算管理を見直すタイミング。家計簿をつけることから始めて。',
+                        '小さな出費の積み重ねが意外と大きいもの。見直しを。'
+                    ],
+                    1: [
+                        '支出は必要最小限に。今の我慢が未来の豊かさを生みます。',
+                        '財布の紐を締めて。質素な生活も一つの豊かさです。',
+                        '大きな出費は避けて。本当に必要かどうか慎重に判断を。',
+                        '金銭トラブルに注意。契約書類は必ず確認してください。',
+                        '今は貯蓄を最優先に。将来への投資と考えて我慢しましょう。'
+                    ]
+                }
+            };
+            
+            const typeMessages = messages[type][score];
+            return typeMessages[Math.floor(Math.random() * typeMessages.length)];
+        }
+
+        function calculatePillar(year, month, day) {
+            const baseYear = 1924;
+            const yearIndex = (year - baseYear) % 60;
+            const monthIndex = (month + 11) % 12;
+            const dayIndex = day % 60;
+
+            return {
+                year: {
+                    stem: tenStems[yearIndex % 10],
+                    branch: twelveBranches[yearIndex % 12],
+                    element: fiveElements[Math.floor(yearIndex % 10 / 2)]
+                },
+                month: {
+                    stem: tenStems[monthIndex % 10],
+                    branch: twelveBranches[monthIndex],
+                    element: fiveElements[Math.floor(monthIndex / 2) % 5]
+                },
+                day: {
+                    stem: tenStems[dayIndex % 10],
+                    branch: twelveBranches[dayIndex % 12],
+                    element: fiveElements[Math.floor(dayIndex % 10 / 2)]
+                }
+            };
+        }
+
+        function calculateElementCompatibility(userElement, todayElement) {
+            const relations = {
+                '木': { '水': 1, '木': 0, '火': 0, '土': -1, '金': -1 },
+                '火': { '木': 1, '火': 0, '土': 0, '金': -1, '水': -1 },
+                '土': { '火': 1, '土': 0, '金': 0, '水': -1, '木': -1 },
+                '金': { '土': 1, '金': 0, '水': 0, '木': -1, '火': -1 },
+                '水': { '金': 1, '水': 0, '木': 0, '火': -1, '土': -1 }
+            };
+            return relations[userElement][todayElement] || 0;
+        }
+
+        function generateMessage(score, element) {
+            const messages = {
+                5: [
+                    '素晴らしい一日になりそう！あなたの魅力が輝く時です',
+                    '今日は特別な日。思い切って新しいことにチャレンジを',
+                    '運勢は最高潮！積極的に行動することで大きな成果を得られます',
+                    'エネルギーに満ち溢れた日。周囲にも良い影響を与えられそう',
+                    '幸運の星があなたを照らしています。自信を持って歩んでください'
+                ],
+                4: [
+                    'とても良い運気です。積極的に行動してみましょう',
+                    '周りの人とのコミュニケーションが鍵となります',
+                    '努力が報われる日。継続してきたことに良い結果が期待できます',
+                    '協力者に恵まれ、チームワークで成功を収められそうです',
+                    '前向きな気持ちが幸運を引き寄せます。笑顔を忘れずに'
+                ],
+                3: [
+                    '安定した運気です。いつも通りの生活を大切に',
+                    'バランスを意識して過ごすことで運気アップ',
+                    '平穏な一日。現在の状況に感謝の気持ちを持って過ごしましょう',
+                    '着実な歩みが将来の成功につながります。焦らず進んで',
+                    '心の平安を保つことで、穏やかで充実した日になります'
+                ],
+                2: [
+                    '少し慎重に過ごしましょう。無理は禁物です',
+                    '今日は準備の日。明日への基盤を作りましょう',
+                    '小さなことから丁寧に取り組むことで、運気が上向きます',
+                    '周囲の意見に耳を傾けることで、新たな気づきが得られそう',
+                    'ゆっくりとしたペースで進むことが、今日の開運ポイント'
+                ],
+                1: [
+                    '今日は静かに過ごすのがベスト。読書や瞑想がおすすめ',
+                    '困難も成長のチャンス。前向きに捉えましょう',
+                    '休息と充電の時間を大切に。明日への活力を蓄えてください',
+                    '内省の時。自分自身と向き合うことで新たな発見があります',
+                    'マイペースで過ごすことが、心の安定につながります'
+                ]
+            };
+            return messages[score][Math.floor(Math.random() * messages[score].length)];
+        }
+
+        function calculateFortune(userBirth) {
+            const today = new Date();
+            const pillars = calculatePillar(userBirth.year, userBirth.month, userBirth.day);
+            const todayPillars = calculatePillar(today.getFullYear(), today.getMonth() + 1, today.getDate());
+            
+            const compatibility = calculateElementCompatibility(pillars.day.element, todayPillars.day.element);
+            const baseScore = 3 + compatibility;
+            
+            const loveScore = Math.max(1, Math.min(5, baseScore + (today.getDate() % 3) - 1));
+            const workScore = Math.max(1, Math.min(5, baseScore + (today.getMonth() % 3) - 1));
+            const healthScore = Math.max(1, Math.min(5, baseScore + (today.getDay() % 3) - 1));
+            const moneyScore = Math.max(1, Math.min(5, baseScore + ((today.getDate() + today.getMonth()) % 3) - 1));
+
+            const overallScore = Math.round((loveScore + workScore + healthScore + moneyScore) / 4);
+            const todayHexagram = hexagrams[(today.getDate() + today.getMonth()) % hexagrams.length];
+            const selectedAdvice = todayHexagram.advice[Math.floor(Math.random() * todayHexagram.advice.length)];
+
+            return {
+                overall: overallScore,
+                love: loveScore,
+                work: workScore,
+                health: healthScore,
+                money: moneyScore,
+                loveMessage: getFortuneMessage('love', loveScore),
+                workMessage: getFortuneMessage('work', workScore),
+                healthMessage: getFortuneMessage('health', healthScore),
+                moneyMessage: getFortuneMessage('money', moneyScore),
+                element: pillars.day.element,
+                elementDescription: getElementDescription(pillars.day.element),
+                hexagram: {
+                    name: todayHexagram.name,
+                    meaning: todayHexagram.meaning,
+                    advice: selectedAdvice
+                },
+                hexagramDetail: getHexagramDetail(todayHexagram),
+                luckyColor: luckyColors[today.getDate() % luckyColors.length],
+                luckyColorItem: getColorItems(luckyColors[today.getDate() % luckyColors.length]),
+                luckyDirection: directions[today.getDay()],
+                message: generateMessage(overallScore, pillars.day.element)
+            };
+        }
+
+        function renderStars(score) {
+            let stars = '';
+            for (let i = 0; i < 5; i++) {
+                if (i < score) {
+                    stars += '<svg class="star star-filled" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>';
+                } else {
+                    stars += '<svg class="star star-empty" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>';
+                }
+            }
+            return stars;
+        }
+
+        function parseBirthDate(dateString) {
+            if (dateString.length !== 8) return null;
+            const year = parseInt(dateString.substring(0, 4));
+            const month = parseInt(dateString.substring(4, 6));
+            const day = parseInt(dateString.substring(6, 8));
+            
+            if (year < 1900 || year > 2024 || month < 1 || month > 12 || day < 1 || day > 31) {
+                return null;
+            }
+            
+            return new Date(year, month - 1, day);
+        }
+
+        // イベントハンドラー
+        function handleInputChange(field, value) {
+            currentState.formData[field] = value;
+        }
+
+        function handleSubmit() {
+            // Analytics イベント送信
+            trackEvent('fortune_button_clicked', 'Fortune Generation');
+            
+            // DOM要素から直接値を取得
+            const nameInput = document.getElementById('nameInput');
+            const birthDateInput = document.getElementById('birthDateInput');
+            const genderSelect = document.getElementById('genderSelect');
+            
+            const name = nameInput ? nameInput.value : '';
+            const birthDate = birthDateInput ? birthDateInput.value : '';
+            const gender = genderSelect ? genderSelect.value : '';
+            
+            if (!name || !birthDate || !gender) {
+                trackEvent('validation_error', 'Form Validation');
+                alert('すべての項目を入力してください');
+                return;
+            }
+
+            const parsedDate = parseBirthDate(birthDate);
+            if (!parsedDate) {
+                trackEvent('birthdate_format_error', 'Form Validation');
+                alert('生年月日は20250101のような8桁の数字で入力してください');
+                return;
+            }
+            
+            const userData = {
+                name: name,
+                year: parsedDate.getFullYear(),
+                month: parsedDate.getMonth() + 1,
+                day: parsedDate.getDate(),
+                gender: gender
+            };
+            
+            // Analytics: 占い生成成功
+            trackEvent('fortune_generated', 'Fortune Generation');
+            
+            currentState.user = userData;
+            currentState.showAnimation = true;
+            render();
+            
+            setTimeout(() => {
+                currentState.fortune = calculateFortune(userData);
+                currentState.showAnimation = false;
+                trackEvent('fortune_displayed', 'Fortune Generation');
+                render();
+            }, 2000);
+        }
+
+        function resetApp() {
+            trackEvent('reset_button_clicked', 'Navigation');
+            currentState.user = null;
+            currentState.fortune = null;
+            currentState.showAnimation = false;
+            currentState.formData = { name: '', birthDate: '', gender: '' };
+            render();
+        }
+
+        // シェア機能
+        function shareToTwitter() {
+            trackEvent('twitter_share', 'Social Share');
+            const text = `🔮心のお守りで今日の運勢を占いました！\n総合運勢：${'★'.repeat(currentState.fortune.overall)}${'☆'.repeat(5-currentState.fortune.overall)}\n今日のエレメント：${currentState.fortune.element}\n\n#心のお守り #今日の運勢 #占い`;
+            const url = window.location.href;
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+        }
+
+        function shareToLine() {
+            trackEvent('line_share', 'Social Share');
+            const text = `🔮心のお守りで今日の運勢を占いました！\n総合運勢：${'★'.repeat(currentState.fortune.overall)}${'☆'.repeat(5-currentState.fortune.overall)}\n今日のエレメント：${currentState.fortune.element}`;
+            const url = window.location.href;
+            window.open(`https://line.me/R/msg/text/?${encodeURIComponent(text + '\n' + url)}`, '_blank');
+        }
+
+        function copyUrl() {
+            trackEvent('url_copy', 'Social Share');
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('URLをコピーしました！');
+            }).catch(() => {
+                // フォールバック
+                const textArea = document.createElement('textarea');
+                textArea.value = window.location.href;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('URLをコピーしました！');
+            });
+        }
+
+        // レンダリング関数
+        function render() {
+            const app = document.getElementById('app');
+            
+            if (currentState.showAnimation) {
+                app.innerHTML = `
+                    <div class="loading">
+                        <svg class="loading-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
+                        </svg>
+                        <p class="text-white text-xl mb-4">運勢を占っています...</p>
+                        <div class="loading-dots">
+                            <div class="loading-dot"></div>
+                            <div class="loading-dot"></div>
+                            <div class="loading-dot"></div>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            if (!currentState.user || !currentState.fortune) {
+                app.innerHTML = `
+                    <div class="form-container pt-8">
+                        <div class="text-center mb-8">
+                            <svg class="mx-auto mb-4" width="48" height="48" viewBox="0 0 24 24" fill="#facc15">
+                                <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
+                            </svg>
+                            <h1 class="text-white">心のお守り</h1>
+                            <p class="text-blue-800">毎日の運勢で今日を幸せに</p>
+                        </div>
+
+                        <div class="card">
+                            <div class="input-group">
+                                <label>お名前</label>
+                                <input
+                                    type="text"
+                                    id="nameInput"
+                                    value="${currentState.formData.name}"
+                                    oninput="handleInputChange('name', this.value)"
+                                    placeholder="お名前を入力してください"
+                                />
+                            </div>
+
+                            <div class="input-group">
+                                <label>生年月日（例：20250101）</label>
+                                <input
+                                    type="text"
+                                    id="birthDateInput"
+                                    value="${currentState.formData.birthDate}"
+                                    oninput="handleInputChange('birthDate', this.value)"
+                                    maxlength="8"
+                                    placeholder="20250101"
+                                />
+                            </div>
+
+                            <div class="input-group">
+                                <label>性別</label>
+                                <select 
+                                    id="genderSelect"
+                                    onchange="handleInputChange('gender', this.value)" 
+                                    style="color: ${currentState.formData.gender ? 'white' : '#4b5563'};"
+                                >
+                                    <option value="">選択してください</option>
+                                    <option value="male" ${currentState.formData.gender === 'male' ? 'selected' : ''}>男性</option>
+                                    <option value="female" ${currentState.formData.gender === 'female' ? 'selected' : ''}>女性</option>
+                                    <option value="other" ${currentState.formData.gender === 'other' ? 'selected' : ''}>その他</option>
+                                </select>
+                            </div>
+
+                            <button onclick="handleSubmit()" class="btn">
+                                今日の運勢を見る
+                            </button>
+                        </div>
+
+                        <div class="footer">
+                            <p>※娯楽を目的とした占いアプリです。結果は参考程度にお楽しみください。</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            // 結果表示
+            const { user, fortune } = currentState;
+            const today = new Date().toLocaleDateString('ja-JP');
+            
+            app.innerHTML = `
+                <div class="container">
+                    <div class="text-center mb-8 pt-4">
+                        <h1 class="text-white">${user.name}さんの今日の運勢</h1>
+                        <p class="text-blue-800">${today}</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="text-center">
+                            <h2 class="text-white">総合運勢</h2>
+                            <div class="stars">${renderStars(fortune.overall)}</div>
+                            <p class="text-lg text-blue-800 mb-4">${fortune.message}</p>
+                            <div class="element-badge ${elementColors[fortune.element]}">
+                                今日のエレメント: ${fortune.element}
+                            </div>
+                            <p class="text-sm text-blue-700 max-w-md mx-auto">${fortune.elementDescription}</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-2 mb-6">
+                        <div class="card">
+                            <div class="flex items-center mb-4">
+                                <svg class="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="#f472b6">
+                                    <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5 2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"/>
+                                </svg>
+                                <h3 class="text-white">恋愛運</h3>
+                            </div>
+                            <div class="stars">${renderStars(fortune.love)}</div>
+                            <p class="text-blue-800 text-sm leading-relaxed">${fortune.loveMessage}</p>
+                        </div>
+
+                        <div class="card">
+                            <div class="flex items-center mb-4">
+                                <svg class="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="#60a5fa">
+                                    <path d="M10,2H14A2,2 0 0,1 16,4V6H20A2,2 0 0,1 22,8V19A2,2 0 0,1 20,21H4C2.89,21 2,20.1 2,19V8C2,6.89 2.89,6 4,6H8V4C8,2.89 8.89,2 10,2M14,6V4H10V6H14Z"/>
+                                </svg>
+                                <h3 class="text-white">仕事運</h3>
+                            </div>
+                            <div class="stars">${renderStars(fortune.work)}</div>
+                            <p class="text-blue-800 text-sm leading-relaxed">${fortune.workMessage}</p>
+                        </div>
+
+                        <div class="card">
+                            <div class="flex items-center mb-4">
+                                <svg class="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="#4ade80">
+                                    <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5H16.3V16H7.7V11.5H9.2V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,9.5V11.5H13.5V9.5C13.5,8.7 12.8,8.2 12,8.2Z"/>
+                                </svg>
+                                <h3 class="text-white">健康運</h3>
+                            </div>
+                            <div class="stars">${renderStars(fortune.health)}</div>
+                            <p class="text-blue-800 text-sm leading-relaxed">${fortune.healthMessage}</p>
+                        </div>
+
+                        <div class="card">
+                            <div class="flex items-center mb-4">
+                                <svg class="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="#facc15">
+                                    <path d="M6,2A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2H6Z M13,3.5L18.5,9H13V3.5Z"/>
+                                </svg>
+                                <h3 class="text-white">金運</h3>
+                            </div>
+                            <div class="stars">${renderStars(fortune.money)}</div>
+                            <p class="text-blue-800 text-sm leading-relaxed">${fortune.moneyMessage}</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2 class="text-white text-center">今日のお守り</h2>
+                        <div class="grid grid-3">
+                            <div class="text-center lucky-item">
+                                <div class="lucky-icon lucky-icon-yellow">
+                                    <svg class="icon-white" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-white">ラッキーカラー</h3>
+                                <p class="text-blue-800">${fortune.luckyColor}</p>
+                                <p class="text-blue-700 text-sm">今日は${fortune.luckyColorItem}を</p>
+                            </div>
+
+                            <div class="text-center lucky-item">
+                                <div class="lucky-icon lucky-icon-blue">
+                                    <svg class="icon-white" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M14.19,14.19L6,18L9.81,9.81L18,6M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4Z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-white">ラッキー方角</h3>
+                                <p class="text-blue-800">${fortune.luckyDirection}</p>
+                            </div>
+
+                            <div class="text-center lucky-item">
+                                <div class="lucky-icon lucky-icon-purple">
+                                    <svg class="icon-white" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-white">今日の卦</h3>
+                                <p class="text-blue-800">${fortune.hexagram.name} (${fortune.hexagram.meaning})</p>
+                                <p class="text-blue-700 text-sm">${fortune.hexagramDetail}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2 class="text-white text-center">開運アドバイス</h2>
+                        <p class="text-blue-800 text-center leading-relaxed">${fortune.hexagram.advice}</p>
+                    </div>
+
+                    <div class="text-center share-container">
+                        <h3 class="text-white mb-4">結果をシェア</h3>
+                        <div class="flex justify-center flex-wrap">
+                            <button onclick="shareToTwitter()" class="btn-share">
+                                🐦 Twitter
+                            </button>
+                            <button onclick="shareToLine()" class="btn-share">
+                                💬 LINE
+                            </button>
+                            <button onclick="copyUrl()" class="btn-share">
+                                🔗 URLコピー
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button onclick="resetApp()" class="btn-reset">
+                            新しく占う
+                        </button>
+                    </div>
+
+                    <div class="footer">
+                        <p>※本アプリは娯楽を目的とした占いアプリです。結果は参考程度にお楽しみください。</p>
+                        <p>人生の重要な決断は、ご自身の判断でお決めいただきますようお願いいたします。</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ページ読み込み時のAnalyticsイベント
+        document.addEventListener('DOMContentLoaded', function() {
+            trackEvent('page_loaded', 'App Usage');
+        });
+
+        // 初期表示
+        render();
+    </script>
+</body>
+</html>
