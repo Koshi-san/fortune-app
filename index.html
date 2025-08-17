@@ -1006,7 +1006,7 @@
 
         // シェア機能
         function shareToTwitter() {
-            trackEvent('X_share', 'Social Share');
+            trackEvent('twitter_share', 'Social Share');
             const text = `🔮心のお守りで今日の運勢を占いました！\n総合運勢：${'★'.repeat(currentState.fortune.overall)}${'☆'.repeat(5-currentState.fortune.overall)}\n今日のエレメント：${currentState.fortune.element}\n\n#心のお守り #今日の運勢 #占い`;
             const url = window.location.href;
             window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
@@ -1233,7 +1233,7 @@
                         <h3 class="text-white mb-4">結果をシェア</h3>
                         <div class="flex justify-center flex-wrap">
                             <button onclick="shareToTwitter()" class="btn-share">
-                                🐦 Twitter
+                                🐦 X
                             </button>
                             <button onclick="shareToLine()" class="btn-share">
                                 💬 LINE
